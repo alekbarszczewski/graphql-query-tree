@@ -1,5 +1,5 @@
 
-# graphql-query-tree
+# graphql-query-tree [![Build Status](https://travis-ci.org/alekbarszczewski/graphql-query-tree.svg?branch=master)](https://travis-ci.org/alekbarszczewski/graphql-query-tree)
 
 Parse `info` object (passed to resolver) into a query tree and extract useful info from it.
 
