@@ -1,6 +1,6 @@
 {
   "name": "graphql-query-tree",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "engines": {
     "node": "4.x"
   },
