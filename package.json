@@ -12,8 +12,10 @@
     "tree"
   ],
   "scripts": {
-    "test": "npm run build && ./node_modules/.bin/mocha test-dist/*.test.js",
-    "build": "./node_modules/.bin/babel src --out-dir dist && ./node_modules/.bin/babel test --out-dir test-dist"
+    "build-test": "npm run build && npm test",
+    "test": "./node_modules/.bin/mocha test-dist/*.test.js",
+    "build": "./node_modules/.bin/babel src --out-dir dist && ./node_modules/.bin/babel test --out-dir test-dist",
+    "preversion": "npm run build-test"
   },
   "repository": {
     "type": "git",
