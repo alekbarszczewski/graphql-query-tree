@@ -56,5 +56,9 @@ export default function (root, args, context, info) {
   // get child fields
   tree.getChildFields('tags'); // ['id', 'text']
   tree.getChildFields('some.invalid.path'); // null
+
+  tree.getParentType(); // 'Query'
+  tree.getParentField(); // 'posts'
+  tree.getReturnType(); // 'Post'
 }
 ```

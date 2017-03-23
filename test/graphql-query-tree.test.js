@@ -11,7 +11,7 @@ beforeEach(function () {
 describe('GraphqlQueryTree', function () {
 
   beforeEach(async function () {
-    const query = `
+    const query = this.query = `
       query {
         posts (${args}) {
           id
@@ -83,6 +83,69 @@ describe('GraphqlQueryTree', function () {
       const tree2 = new GraphqlQueryTree(this.info, true);
       expect(tree2.getChildFields().sort()).to.eql([ 'posts' ].sort());
       expect(tree2.getChildFields('posts.tags.associatedTags').sort()).to.eql([ 'id', 'tagProp'].sort());
+    });
+
+  });
+
+  describe('#getParentType', function () {
+
+    it('should return parent type', async function () {
+      const self = this;
+      addResolveFunctionsToSchema(this.schema, {
+        Post: {
+          author: function (root, args, context, info) {
+            self.nestedInfo = info;
+            return null;
+          }
+        },
+      });
+      await this.runQuery(this.query);
+      const tree = new GraphqlQueryTree(this.info);
+      const nestedTree = new GraphqlQueryTree(this.nestedInfo);
+      expect(tree.getParentType()).to.equal('Query');
+      expect(nestedTree.getParentType()).to.equal('Post');
+    });
+
+  });
+
+  describe('#getReturnType', function () {
+
+    it('should return return type', async function () {
+      const self = this;
+      addResolveFunctionsToSchema(this.schema, {
+        Post: {
+          author: function (root, args, context, info) {
+            self.nestedInfo = info;
+            return null;
+          }
+        },
+      });
+      await this.runQuery(this.query);
+      const tree = new GraphqlQueryTree(this.info);
+      const nestedTree = new GraphqlQueryTree(this.nestedInfo);
+      expect(tree.getReturnType()).to.equal('Post');
+      expect(nestedTree.getReturnType()).to.equal('User');
+    });
+
+  });
+
+  describe('#getParentField', function () {
+
+    it('should return parent field', async function () {
+      const self = this;
+      addResolveFunctionsToSchema(this.schema, {
+        Post: {
+          author: function (root, args, context, info) {
+            self.nestedInfo = info;
+            return null;
+          }
+        },
+      });
+      await this.runQuery(this.query);
+      const tree = new GraphqlQueryTree(this.info);
+      const nestedTree = new GraphqlQueryTree(this.nestedInfo);
+      expect(tree.getParentField()).to.equal('posts');
+      expect(nestedTree.getParentField()).to.equal('author');
     });
 
   });

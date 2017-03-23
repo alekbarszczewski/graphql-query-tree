@@ -25,7 +25,7 @@ const buildTree = function (selections, parentType, info, tree = {}) {
   return tree;
 };
 
-const getType = function (type) {
+export function getType (type) {
   type = getNullableType(type);
   if (type.ofType) {
     type = getType(type.ofType);
