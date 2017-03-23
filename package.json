@@ -9,7 +9,9 @@
   "keywords": [
     "graphql",
     "query",
-    "tree"
+    "tree",
+    "info",
+    "resolver"
   ],
   "scripts": {
     "build-test": "npm run build && npm test",
