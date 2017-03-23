@@ -30,10 +30,10 @@ query {
       id
       name
     }
-  }
-  tags (limit: 10, sort: "created_at") {
-    id
-    text
+    tags (limit: 10, sort: "created_at") {
+      id
+      text
+    }
   }
 }
 ```
