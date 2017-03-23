@@ -6,6 +6,11 @@
   },
   "description": "GraphQL query tree from info object",
   "main": "dist/graphql-query-tree.js",
+  "keywords": [
+    "graphql",
+    "query",
+    "tree"
+  ],
   "scripts": {
     "test": "npm run build && ./node_modules/.bin/mocha test-dist/*.test.js",
     "build": "./node_modules/.bin/babel src --out-dir dist && ./node_modules/.bin/babel test --out-dir test-dist"
