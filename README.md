@@ -60,5 +60,9 @@ export default function (root, args, context, info) {
   tree.getParentType(); // 'Query'
   tree.getParentField(); // 'posts'
   tree.getReturnType(); // 'Post'
+  tree.getType(); // 'Post'
+  tree.getType('author'); // 'User'
+  tree.getType('tags'); // 'Tag'
+  tree.getType('some.invalid.path'); // null
 }
 ```

@@ -29,22 +29,26 @@ export const argValues = {
 export const expectedTree = {
   posts: {
     $args: argValues,
-    id: { $args: {} },
-    postProp: { $args: argValues },
+    $type: 'Post',
+    id: { $args: {}, $type: 'Int' },
+    postProp: { $args: argValues, $type: 'Int' },
     tags: {
       $args: argValues,
-      id: { $args: {} },
-      tagProp: { $args: argValues },
+      $type: 'Tag',
+      id: { $args: {}, $type: 'Int' },
+      tagProp: { $args: argValues, $type: 'Int' },
       associatedTags: {
-        id: { $args: {} },
-        tagProp: { $args: argValues },
+        id: { $args: {}, $type: 'Int' },
+        tagProp: { $args: argValues, $type: 'Int' },
         $args: argValues,
+        $type: 'Tag',
       },
     },
     author: {
+      $type: 'User',
       $args: argValues,
-      id: { $args: {} },
-      userProp: { $args: argValues },
+      id: { $args: {}, $type: 'Int' },
+      userProp: { $args: argValues, $type: 'Int' },
     }
   },
 };

@@ -150,4 +150,18 @@ describe('GraphqlQueryTree', function () {
 
   });
 
+  describe('#getField', function () {
+
+    it('should return type of field at given path', async function () {
+      const self = this;
+      await this.runQuery(this.query);
+      const tree = new GraphqlQueryTree(this.info);
+      expect(tree.getType()).to.equal('Post');
+      expect(tree.getType('author')).to.equal('User');
+      expect(tree.getType('tags')).to.equal('Tag');
+      expect(tree.getType('tags.associatedTags')).to.equal('Tag');
+    });
+
+  });
+
 });

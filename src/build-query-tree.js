@@ -18,6 +18,7 @@ const buildTree = function (selections, parentType, info, tree = {}) {
     tree[name] = {};
     const fieldDef = parentType._fields[name]
     tree[name]['$args'] = getArgumentValues(fieldDef, field, info.variableValues);
+    tree[name]['$type'] = getType(fieldDef.type).name;
     if (field.selectionSet) {
       buildTree(field.selectionSet.selections, fieldDef.type, info, tree[name]);
     }

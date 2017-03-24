@@ -22,7 +22,12 @@ export default class GraphqlQueryTree {
 
   getChildFields (path) {
     const tree = path ? selectn(path, this._tree) : this._tree;
-    return tree ? Object.keys(tree).filter(key => (key !== '$args')) : null;
+    return tree ? Object.keys(tree).filter(key => (key[0] !== '$')) : null;
+  }
+
+  getType (path) {
+    const tree = path ? selectn(path, this._tree) : this._tree;
+    return tree && tree['$type'] ? tree['$type'] : null;
   }
 
   getParentType () {
