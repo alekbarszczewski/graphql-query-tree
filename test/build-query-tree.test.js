@@ -198,10 +198,34 @@ describe('buildQueryTree', function () {
     expect(tree).to.eql(expectedTree.posts);
   });
 
-});
-
-describe('GraphqlQueryTree', function () {
-
-  // describe('#')
+  it('should work with __typename', async function () {
+    const query = `
+      query {
+        posts (${args}) {
+          __typename
+          id
+          postProp (${args})
+          tags (${args}) {
+            __typename
+            id
+            tagProp (${args})
+            associatedTags (${args}) {
+              __typename
+              id
+              tagProp (${args})
+            }
+          }
+          author (${args}) {
+            __typename
+            id
+            userProp (${args})
+          }
+        }
+      }
+    `;
+    await this.runQuery(query);
+    const tree = buildQueryTree(this.info);;
+    expect(tree).to.eql(expectedTree.posts);
+  });
 
 });
