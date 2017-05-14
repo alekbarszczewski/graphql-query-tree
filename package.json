@@ -2,7 +2,7 @@
   "name": "graphql-query-tree",
   "version": "0.2.1",
   "engines": {
-    "node": "4.x"
+    "node": ">=4.x"
   },
   "description": "GraphQL query tree from info object",
   "main": "dist/graphql-query-tree.js",
