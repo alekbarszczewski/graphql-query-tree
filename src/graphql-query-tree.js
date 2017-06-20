@@ -8,7 +8,7 @@ export default class GraphqlQueryTree {
     this._tree = buildQueryTree(info, keepRoot);
     this._parentType = getType(info.parentType).name;
     this._returnType = getType(info.returnType).name;
-    this._parentField = info.path.key;
+    this._parentField = info.fieldName;
   }
 
   isSelected (path) {

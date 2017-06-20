@@ -228,4 +228,51 @@ describe('buildQueryTree', function () {
     expect(tree).to.eql(expectedTree.posts);
   });
 
+  it('should work with aliases', async function () {
+    const self = this;
+    const query = `
+      query {
+        postsAlias: posts (${args}) {
+          __typename
+          id
+          postProp (${args})
+          tagsAlias: tags (${args}) {
+            __typename
+            id
+            tagProp (${args})
+            associatedTags (${args}) {
+              __typename
+              id
+              tagProp (${args})
+            }
+          }
+          author (${args}) {
+            __typename
+            id
+            userProp (${args})
+          }
+        }
+      }
+    `;
+    addResolveFunctionsToSchema(this.schema, {
+      Query: {
+        posts (root, args, context, info) {
+          self.info = info;
+          return [{ id: 1, postProp: 1,  tags: [{ id: 1, tagProp: 1, associatedTags: [] }] }];
+        },
+      },
+      Post: {
+        tags (root, args, context, info) {
+          self.nestedInfo = info;
+          return [{ id: 2, tagProp: 2, associatedTags: [] }];
+        },
+      },
+    });
+    await this.runQuery(query);
+    const tree = buildQueryTree(this.info);
+    const nestedTree = buildQueryTree(this.nestedInfo);
+    expect(tree).to.eql(expectedTree.posts);
+    expect(nestedTree).to.eql(expectedTree.posts.tags);
+  });
+
 });
