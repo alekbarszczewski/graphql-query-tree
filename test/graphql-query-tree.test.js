@@ -196,6 +196,34 @@ describe('GraphqlQueryTree', function () {
       expect(nestedTree.getParentField()).to.equal('tags');
     });
 
+    it('should work with aliases', async function () {
+      const self = this;
+      const parentFields = [];
+      addResolveFunctionsToSchema(this.schema, {
+        Query: {
+          posts (root, args, context, info) {
+            const tree = new GraphqlQueryTree(info);
+            parentFields.push(tree.getParentField());
+            return [{ tags: [{ id: 1 }] }];
+          },
+        },
+      });
+      const result = await this.runQuery(`
+        query {
+          postsAlias1: posts {
+            tagsAlias: tags { id }
+          }
+          postsAlias2: posts {
+            tagsAlias: tags { id }
+          }
+          posts {
+            tagsAlias: tags { id }
+          }
+        }
+      `);
+      expect(parentFields).to.eql(['posts', 'posts', 'posts']);
+    });
+
   });
 
 });
