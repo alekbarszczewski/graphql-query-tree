@@ -26,7 +26,7 @@
   "author": "Alek Barszczewski <alek.barszczewski@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "graphql": "^0.9.1",
+    "graphql": "^0.13.2",
     "selectn": "^1.1.2"
   },
   "devDependencies": {
